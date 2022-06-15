@@ -1,5 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:project_jh/constants.dart';
+import 'package:project_jh/models/product.dart';
+
+import 'categories.dart';
+import 'item_card.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
@@ -20,69 +25,28 @@ class Body extends StatelessWidget {
           ),
         ),
         const Categories(),
-      ],
-    );
-  }
-}
-
-class Categories extends StatefulWidget {
-  const Categories({Key? key}) : super(key: key);
-
-  @override
-  State<Categories> createState() => _CategoriesState();
-}
-
-class _CategoriesState extends State<Categories> {
-  // ignore: non_constant_identifier_names
-  List<String> Categories = [
-    "aaa",
-    "bbb",
-    "ccc",
-    "ddd",
-    "llll",
-    "fashjdih",
-    "uagsdugif",
-    "uafiogdifh"
-  ];
-  int selectedIndex = 0;
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 25,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: Categories.length,
-          itemBuilder: (context, index) => buildCategory(index)),
-    );
-  }
-
-  Widget buildCategory(int index) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedIndex = index;
-        });
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              Categories[index],
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: selectedIndex == index ? kTextColor : kTextLightColor),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
+            child: GridView.builder(
+              itemCount: products.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: kDefaultPaddin,
+                  crossAxisSpacing: kDefaultPaddin,
+                  childAspectRatio: 0.75),
+              itemBuilder: (context, index) => ItemCard(
+                product: products[index],
+                press: () {
+                  if (kDebugMode) {
+                    print('You pressed the button.');
+                  }
+                },
+              ),
             ),
-            Container(
-              margin: const EdgeInsets.only(top: kDefaultPaddin / 4),
-              height: 2,
-              width: 30,
-              color: selectedIndex == index ? Colors.black : Colors.transparent,
-            )
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
