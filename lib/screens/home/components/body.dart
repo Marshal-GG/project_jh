@@ -1,8 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:project_jh/constants.dart';
 import 'package:project_jh/models/product.dart';
 
+import '../../details/details_screen.dart';
 import 'categories.dart';
 import 'item_card.dart';
 
@@ -38,9 +38,13 @@ class Body extends StatelessWidget {
               itemBuilder: (context, index) => ItemCard(
                 product: products[index],
                 press: () {
-                  if (kDebugMode) {
-                    print('You pressed the button.');
-                  }
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailsScreen(
+                          product: products[index],
+                        ),
+                      ));
                 },
               ),
             ),

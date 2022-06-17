@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project_jh/screens/home/components/body.dart';
 
 import '../../constants.dart';
@@ -11,7 +10,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: const Body(),
+      body: Body(),
     );
   }
 
