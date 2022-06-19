@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:project_jh/constants.dart';
 import 'package:project_jh/models/product.dart';
 import 'package:project_jh/screens/details/components/Product_Title_With_Image.dart';
+import 'package:project_jh/screens/details/components/cart_counter.dart';
+import 'package:project_jh/screens/details/components/color_and_quantity.dart';
+import 'package:project_jh/screens/details/components/description.dart';
 
 class Body extends StatelessWidget {
   final Product product;
@@ -34,43 +37,9 @@ class Body extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          Column(
-                            children: [
-                              const Text("Color"),
-                              Row(
-                                children: const [
-                                  ColorDot(
-                                      color: Color(0xFF356C95),
-                                      isSelected: true),
-                                  ColorDot(color: Color(0xFF356C95)),
-                                  ColorDot(color: Color(0xFF356C95)),
-                                ],
-                              ),
-                            ],
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              style: TextStyle(color: kTextColor),
-                              children: [
-                                const TextSpan(
-                                  text: "Quantity\n",
-                                ),
-                                TextSpan(
-                                  text: "${product.size} KG",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline5
-                                      ?.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                      ColorAndQuantity(product: product),
+                      Description(product: product),
+                      const CartCounter(),
                     ],
                   ),
                 ),
@@ -80,39 +49,6 @@ class Body extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class ColorDot extends StatelessWidget {
-  final Color color;
-  final bool isSelected;
-
-  const ColorDot({
-    Key? key,
-    required this.color,
-    this.isSelected = false,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(
-          top: kDefaultPaddin / 4, right: kDefaultPaddin / 2),
-      padding: const EdgeInsets.all(2.5),
-      height: 24,
-      width: 24,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(
-          color: isSelected ? color : Colors.transparent,
-        ),
-      ),
-      child: DecoratedBox(
-          decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-      )),
     );
   }
 }
