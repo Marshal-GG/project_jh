@@ -82,4 +82,5 @@ List<Product> products = [
   ),
 ];
 
-String dummyText = "Sample Text For Testing";
+String dummyText =
+    "Flutter is Google's cross-platform UI toolkit created to help developers build expressive and beautiful mobile applications. In the article, you will learn how to build and secure a Flutter application with Auth0 using the open-source AppAuth library with the flutter_appauth wrapper plugin.";
