@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_jh/constants.dart';
+import 'package:project_jh/models/product.dart';
 
 class CartCounter extends StatefulWidget {
   const CartCounter({Key? key}) : super(key: key);
@@ -52,7 +53,10 @@ class _CartCounterState extends State<CartCounter> {
       child: OutlinedButton(
         onPressed: press,
         // ignore: sort_child_properties_last
-        child: Icon(icon),
+        child: Icon(
+          icon,
+          color: Colors.grey,
+        ),
         style: OutlinedButton.styleFrom(
             padding: EdgeInsets.zero,
             shape: RoundedRectangleBorder(

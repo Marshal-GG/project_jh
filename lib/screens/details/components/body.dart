@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:project_jh/constants.dart';
 import 'package:project_jh/models/product.dart';
-import 'package:project_jh/screens/details/components/Product_Title_With_Image.dart';
-import 'package:project_jh/screens/details/components/cart_counter.dart';
+import 'package:project_jh/screens/details/components/product_title_with_image.dart';
+import 'package:project_jh/screens/details/components/add_to_cart.dart';
 import 'package:project_jh/screens/details/components/color_and_quantity.dart';
+import 'package:project_jh/screens/details/components/counter_with_fav_btn.dart';
 import 'package:project_jh/screens/details/components/description.dart';
+
+const space = SizedBox(
+  height: kDefaultPaddin / 2,
+);
 
 class Body extends StatelessWidget {
   final Product product;
@@ -38,8 +43,12 @@ class Body extends StatelessWidget {
                   child: Column(
                     children: [
                       ColorAndQuantity(product: product),
+                      space,
                       Description(product: product),
-                      const CartCounter(),
+                      space,
+                      const CounterWithFavBtn(),
+                      space,
+                      AddToCart(product: product)
                     ],
                   ),
                 ),
