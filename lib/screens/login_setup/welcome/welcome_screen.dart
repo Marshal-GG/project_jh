@@ -4,7 +4,7 @@ import 'package:project_jh/screens/login_setup/components/social_sign_up.dart';
 import 'package:project_jh/constants.dart';
 import 'package:project_jh/screens/login_setup/welcome/components/login_signup_btn.dart';
 import 'package:project_jh/screens/login_setup/welcome/components/welcome_image.dart';
-import 'package:project_jh/responsive.dart';
+import 'package:project_jh/screens/login_setup/responsive.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);

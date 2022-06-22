@@ -3,7 +3,7 @@ import 'package:project_jh/screens/login_setup/components/background.dart';
 import 'package:project_jh/screens/login_setup/components/social_sign_up.dart';
 import 'package:project_jh/screens/login_setup/login/components/login_form.dart';
 import 'package:project_jh/screens/login_setup/login/components/login_screen_top_image.dart';
-import 'package:project_jh/responsive.dart';
+import 'package:project_jh/screens/login_setup/responsive.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
