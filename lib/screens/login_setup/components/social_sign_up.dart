@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_jh/login_setup/components/social_icon.dart';
-import 'package:project_jh/login_setup/components/or_divider.dart';
+import 'package:project_jh/screens/login_setup/components/social_icon.dart';
+import 'package:project_jh/screens/login_setup/components/or_divider.dart';
 import 'package:project_jh/screens/home/home_screen.dart';
 
 class SocialSignUp extends StatelessWidget {

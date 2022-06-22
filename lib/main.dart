@@ -1,8 +1,6 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:project_jh/constants.dart';
-import 'package:project_jh/login_setup/welcome/welcome_screen.dart';
-import 'package:project_jh/screens/home/home_screen.dart';
+import 'package:project_jh/screens/login_setup/welcome/welcome_screen.dart';
 
 void main() {
   runApp(const MyApp());
