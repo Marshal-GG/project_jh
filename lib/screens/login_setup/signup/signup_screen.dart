@@ -11,13 +11,24 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Background(
-      child: SingleChildScrollView(
-        child: Responsive(
-          mobile: MobileSignUpScreen(),
-          desktop: DesktopSignUpScreen(),
+    return Scaffold(
+      appBar: buildAppBar2(),
+      body: const Background(
+        child: SingleChildScrollView(
+          child: Responsive(
+            mobile: MobileSignUpScreen(),
+            desktop: DesktopSignUpScreen(),
+          ),
         ),
       ),
+    );
+  }
+
+  AppBar buildAppBar2() {
+    return AppBar(
+      elevation: 0,
+      title: const Text("Sign Up"),
+      backgroundColor: Colors.transparent,
     );
   }
 }

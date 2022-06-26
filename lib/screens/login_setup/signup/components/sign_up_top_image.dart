@@ -11,11 +11,11 @@ class SignUpScreenTopImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          "Sign Up".toUpperCase(),
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: kDefaultPaddin),
+        // Text(
+        //   "Sign Up".toUpperCase(),
+        //   style: const TextStyle(fontWeight: FontWeight.bold),
+        // ),
+        // const SizedBox(height: kDefaultPaddin),
         Row(
           children: [
             const Spacer(),

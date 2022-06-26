@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:project_jh/screens/login_setup/components/background.dart';
 import 'package:project_jh/screens/login_setup/components/social_sign_up.dart';
-import 'package:project_jh/screens/login_setup/login/components/login_form.dart';
-import 'package:project_jh/screens/login_setup/login/components/login_screen_top_image.dart';
+import 'package:project_jh/constants.dart';
+import 'package:project_jh/screens/login_setup/signup/components/sign_up_top_image.dart';
 import 'package:project_jh/screens/login_setup/responsive.dart';
+import 'package:project_jh/screens/login_setup/signup/more%20details/components/signup_details_form.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class SignupDetailsScreen extends StatelessWidget {
+  const SignupDetailsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,25 +16,26 @@ class LoginScreen extends StatelessWidget {
       body: const Background(
         child: SingleChildScrollView(
           child: Responsive(
-            mobile: MobileLoginScreen(),
-            desktop: DesktopLoginScreen(),
+            mobile: MobileSignUpScreen(),
+            desktop: DesktopSignUpScreen(),
           ),
         ),
       ),
     );
   }
+
+  AppBar buildAppBar2() {
+    return AppBar(
+      elevation: 0,
+      title: const Text("Sign Up"),
+      backgroundColor: Colors.transparent,
+      centerTitle: true,
+    );
+  }
 }
 
-AppBar buildAppBar2() {
-  return AppBar(
-    elevation: 0,
-    title: const Text("Login"),
-    backgroundColor: Colors.transparent,
-  );
-}
-
-class DesktopLoginScreen extends StatelessWidget {
-  const DesktopLoginScreen({
+class DesktopSignUpScreen extends StatelessWidget {
+  const DesktopSignUpScreen({
     Key? key,
   }) : super(key: key);
 
@@ -41,14 +43,19 @@ class DesktopLoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Expanded(child: LoginScreenTopImage()),
+        const Expanded(
+          child: SignUpScreenTopImage(),
+        ),
         Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               SizedBox(
                 width: 450,
-                child: LoginForm(),
+                child: SignupDetailsForm(),
+              ),
+              SizedBox(
+                height: kDefaultPaddin / 2,
               ),
               SocialSignUp(),
             ],
@@ -59,26 +66,28 @@ class DesktopLoginScreen extends StatelessWidget {
   }
 }
 
-class MobileLoginScreen extends StatelessWidget {
-  const MobileLoginScreen({Key? key}) : super(key: key);
+class MobileSignUpScreen extends StatelessWidget {
+  const MobileSignUpScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const LoginScreenTopImage(),
+        const SignUpScreenTopImage(),
         Row(
           children: const [
             Spacer(),
             Expanded(
               flex: 8,
-              child: LoginForm(),
+              child: SignupDetailsForm(),
             ),
             Spacer(),
           ],
         ),
-        const SocialSignUp(),
+        const SocialSignUp()
       ],
     );
   }
