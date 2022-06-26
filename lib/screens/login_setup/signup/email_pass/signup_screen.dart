@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:project_jh/screens/login_setup/components/background.dart';
 import 'package:project_jh/screens/login_setup/components/social_sign_up.dart';
 import 'package:project_jh/constants.dart';
-import 'package:project_jh/screens/login_setup/signup/components/sign_up_form.dart';
-import 'package:project_jh/screens/login_setup/signup/components/sign_up_top_image.dart';
+import 'package:project_jh/screens/login_setup/signup/email_pass/components/sign_up_form.dart';
 import 'package:project_jh/screens/login_setup/responsive.dart';
+import 'package:project_jh/screens/login_setup/signup/email_pass/components/sign_up_top_image.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -28,6 +28,7 @@ class SignupScreen extends StatelessWidget {
     return AppBar(
       elevation: 0,
       title: const Text("Sign Up"),
+      centerTitle: true,
       backgroundColor: Colors.transparent,
     );
   }

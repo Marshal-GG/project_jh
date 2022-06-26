@@ -12,7 +12,7 @@ class WelcomeImage extends StatelessWidget {
         const Text(
           "Welcome to Project JH",
           style: TextStyle(
-              fontSize: getProportionateScreenWidth(28),
+              // fontSize: getProportionateScreenWidth(28),
               fontWeight: FontWeight.bold),
         ),
         const SizedBox(

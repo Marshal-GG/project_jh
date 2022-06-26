@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_jh/constants.dart';
 import 'package:project_jh/screens/login_setup/login/login_screen.dart';
-import 'package:project_jh/screens/login_setup/signup/signup_screen.dart';
+import 'package:project_jh/screens/login_setup/signup/email_pass/signup_screen.dart';
 
 class LoginSignupBtn extends StatelessWidget {
   const LoginSignupBtn({Key? key}) : super(key: key);

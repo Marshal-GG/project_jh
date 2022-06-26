@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:project_jh/screens/login_setup/components/background.dart';
 import 'package:project_jh/screens/login_setup/components/social_sign_up.dart';
 import 'package:project_jh/constants.dart';
-import 'package:project_jh/screens/login_setup/signup/components/sign_up_top_image.dart';
+
 import 'package:project_jh/screens/login_setup/responsive.dart';
+import 'package:project_jh/screens/login_setup/signup/email_pass/components/sign_up_top_image.dart';
 import 'package:project_jh/screens/login_setup/signup/more%20details/components/signup_details_form.dart';
 
 class SignupDetailsScreen extends StatelessWidget {

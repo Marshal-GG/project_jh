@@ -28,6 +28,7 @@ AppBar buildAppBar2() {
   return AppBar(
     elevation: 0,
     title: const Text("Login"),
+    centerTitle: true,
     backgroundColor: Colors.transparent,
   );
 }
