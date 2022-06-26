@@ -11,7 +11,9 @@ class WelcomeImage extends StatelessWidget {
       children: [
         const Text(
           "Welcome to Project JH",
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+              fontSize: getProportionateScreenWidth(28),
+              fontWeight: FontWeight.bold),
         ),
         const SizedBox(
           height: kDefaultPaddin * 2,
