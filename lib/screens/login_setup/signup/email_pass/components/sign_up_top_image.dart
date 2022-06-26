@@ -9,25 +9,33 @@ class SignUpScreenTopImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Text(
-        //   "Sign Up".toUpperCase(),
-        //   style: const TextStyle(fontWeight: FontWeight.bold),
-        // ),
-        // const SizedBox(height: kDefaultPaddin),
-        Row(
-          children: [
-            const Spacer(),
-            Expanded(
-              flex: 8,
-              child: SvgPicture.asset("assets/icons/signup.svg"),
-            ),
-            const Spacer(),
-          ],
-        ),
-        const SizedBox(height: kDefaultPaddin),
-      ],
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        children: [
+          Text(
+            "Register Account",
+            style: headingStyle,
+          ),
+          const Text(
+            "Complete your details or continue \nwith social media",
+            textAlign: TextAlign.center,
+            style: TextStyle(color: kTextColor),
+          ),
+          const SizedBox(height: kDefaultPaddin),
+          Row(
+            children: [
+              const Spacer(),
+              Expanded(
+                flex: 8,
+                child: SvgPicture.asset("assets/icons/signup.svg"),
+              ),
+              const Spacer(),
+            ],
+          ),
+          const SizedBox(height: kDefaultPaddin),
+        ],
+      ),
     );
   }
 }

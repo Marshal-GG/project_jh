@@ -58,6 +58,7 @@ class DesktopSignUpScreen extends StatelessWidget {
                 height: kDefaultPaddin / 2,
               ),
               SocialSignUp(),
+              SizedBox(height: kDefaultPaddin),
             ],
           ),
         ),
@@ -87,7 +88,8 @@ class MobileSignUpScreen extends StatelessWidget {
             Spacer(),
           ],
         ),
-        const SocialSignUp()
+        const SocialSignUp(),
+        const SizedBox(height: kDefaultPaddin),
       ],
     );
   }

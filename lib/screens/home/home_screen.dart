@@ -9,12 +9,12 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: buildAppBar(context),
       body: const Body(),
     );
   }
 
-  AppBar buildAppBar() {
+  AppBar buildAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 0,
@@ -34,7 +34,16 @@ class HomeScreen extends StatelessWidget {
         IconButton(
           icon: const Icon(Icons.shopping_cart_outlined),
           color: kTextColor,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return const HomeScreen();
+                },
+              ),
+            );
+          },
         ),
         const SizedBox(
           width: kDefaultPaddin / 2,

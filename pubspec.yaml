@@ -38,6 +38,10 @@ dependencies:
   flutter_svg: ^1.1.0
   datetime_picker_formfield: ^2.0.0
   flutter_rounded_date_picker: ^3.0.1
+  firebase_auth: ^3.3.20
+  fluttertoast: ^8.0.9
+  firebase_core: ^1.18.0
+  cloud_firestore: ^3.1.18
 
 dev_dependencies:
   flutter_test:

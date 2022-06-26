@@ -41,7 +41,7 @@ class LoginSignupBtn extends StatelessWidget {
               primary: kPrimaryLightColor, elevation: 0),
           child: Text(
             "Signup".toUpperCase(),
-            style: const TextStyle(color: Colors.black),
+            style: const TextStyle(color: kPrimaryColor),
           ),
         ),
       ],

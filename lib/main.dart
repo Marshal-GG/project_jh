@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:project_jh/constants.dart';
-import 'package:project_jh/screens/login_setup/signup/more%20details/signup_details_screen.dart';
 import 'package:project_jh/screens/login_setup/welcome/welcome_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 
@@ -23,6 +29,7 @@ class MyApp extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             elevation: 0,
             primary: kPrimaryColor,
+            onPrimary: kPrimaryLightColor,
             shape: const StadiumBorder(),
             maximumSize: const Size(double.infinity, 56),
             minimumSize: const Size(double.infinity, 56),

@@ -5,12 +5,14 @@ import 'package:project_jh/constants.dart';
 import 'package:project_jh/screens/login_setup/welcome/components/login_signup_btn.dart';
 import 'package:project_jh/screens/login_setup/welcome/components/welcome_image.dart';
 import 'package:project_jh/screens/login_setup/responsive.dart';
+import 'package:project_jh/size_config.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    sizeconfig().init(context);
     return const Background(
       child: SingleChildScrollView(
         child: SafeArea(

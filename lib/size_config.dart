@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class sizeConfig {
+// ignore: camel_case_types
+class sizeconfig {
   static late MediaQueryData _mediaQueryData;
   static late double screenWidth;
   static late double screenHeight;
@@ -16,11 +17,11 @@ class sizeConfig {
 }
 
 double getProportionateScreenHeight(double inputHeight) {
-  double screenHeight = sizeConfig.screenHeight;
+  double screenHeight = sizeconfig.screenHeight;
   return (inputHeight / 812.0) * screenHeight;
 }
 
 double getProportionateScreenWidth(double inputWidth) {
-  double screenWidth = sizeConfig.screenWidth;
+  double screenWidth = sizeconfig.screenWidth;
   return (inputWidth / 375.0) * screenWidth;
 }
