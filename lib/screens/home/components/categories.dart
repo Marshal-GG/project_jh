@@ -17,9 +17,6 @@ class _CategoriesState extends State<Categories> {
     "Daily Dose",
     "Consumables",
     "Baked",
-    "fashjdih",
-    "uagsdugif",
-    "uafiogdifh"
   ];
   int selectedIndex = 0;
   @override

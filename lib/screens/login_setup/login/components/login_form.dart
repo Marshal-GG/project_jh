@@ -156,19 +156,26 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
+  String _error_msg = "khaifh";
+
   void signin(String email, String password) async {
     if (_formKey.currentState!.validate()) {
-      await _auth
-          .signInWithEmailAndPassword(email: email, password: password)
-          .then((uid) => {
-                Fluttertoast.showToast(msg: "LoginSuccessful"),
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
-                ),
-              })
-          .catchError((e) {
-        Fluttertoast.showToast(msg: e!.msg);
-      });
+      try {
+        await _auth
+            .signInWithEmailAndPassword(email: email, password: password)
+            .then((uid) => {
+                  Fluttertoast.showToast(msg: "LoginSuccessful"),
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  ),
+                });
+      } catch (_error_msg) {
+        print(_error_msg);
+      }
+      //   .catchError((e) {
+      // Fluttertoast.showToast(msg: e!.msg);
+      // },
+      // );
     }
   }
 }

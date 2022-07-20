@@ -20,20 +20,20 @@ class HomeScreen extends StatelessWidget {
       elevation: 0,
       leading: IconButton(
         icon: const Icon(
-          Icons.arrow_back,
-          color: kTextColor,
+          Icons.menu_rounded,
+          color: kPrimaryColor,
         ),
         onPressed: () {},
       ),
       actions: <Widget>[
         IconButton(
           icon: const Icon(Icons.search),
-          color: kTextColor,
+          color: kPrimaryColor,
           onPressed: () {},
         ),
         IconButton(
           icon: const Icon(Icons.shopping_cart_outlined),
-          color: kTextColor,
+          color: kPrimaryColor,
           onPressed: () {
             Navigator.push(
               context,
