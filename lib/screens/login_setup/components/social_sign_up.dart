@@ -47,19 +47,19 @@ class SocialSignUp extends StatelessWidget {
                 );
               },
             ),
-            SocialIcon(
-              iconsrc: "assets/icons/phone.svg",
-              press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const PhoneNumberScreen();
-                    },
-                  ),
-                );
-              },
-            ),
+            // SocialIcon(
+            //   iconsrc: "assets/icons/phone.svg",
+            //   press: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) {
+            //           return const PhoneNumberScreen();
+            //         },
+            //       ),
+            //     );
+            //   },
+            // ),
           ],
         )
       ],

@@ -7,8 +7,8 @@ class FirebaseServices {
   final _auth = FirebaseAuth.instance;
   final _googleSignIn = GoogleSignIn();
   User? currentUser;
-  // String? userName;
-  // String? userEmail;
+  String? userName;
+  String? userEmail;
   signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount =
@@ -32,6 +32,7 @@ class FirebaseServices {
         );
       }
     } on FirebaseAuthException catch (e) {
+      print('Failed with error code: ${e.code}');
       print(e.message);
       throw e;
     }

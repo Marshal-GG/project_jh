@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:project_jh/constants.dart';
 import 'package:project_jh/size_config.dart';
 
@@ -18,31 +19,31 @@ class _OtpFormScreenState extends State<OtpFormScreen> {
   FocusNode? pin4FocusNode;
   final _formKey = GlobalKey<FormState>();
 
-  String? nextNode, nodeName;
+  String? pin;
 
-  @override
-  void initState() {
-    super.initState();
-    pin1FocusNode = FocusNode();
-    pin2FocusNode = FocusNode();
-    pin3FocusNode = FocusNode();
-    pin4FocusNode = FocusNode();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   pin1FocusNode = FocusNode();
+  //   pin2FocusNode = FocusNode();
+  //   pin3FocusNode = FocusNode();
+  //   pin4FocusNode = FocusNode();
+  // }
 
-  @override
-  void dispose() {
-    pin1FocusNode?.dispose();
-    pin2FocusNode?.dispose();
-    pin3FocusNode?.dispose();
-    pin4FocusNode?.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   pin1FocusNode?.dispose();
+  //   pin2FocusNode?.dispose();
+  //   pin3FocusNode?.dispose();
+  //   pin4FocusNode?.dispose();
+  //   super.dispose();
+  // }
 
-  void nextField({required String value, FocusNode? focusNode}) {
-    if (value.length == 1) {
-      focusNode?.requestFocus();
-    }
-  }
+  // void nextField({required String value, FocusNode? focusNode}) {
+  //   if (value.length == 1) {
+  //     focusNode?.requestFocus();
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -51,15 +52,16 @@ class _OtpFormScreenState extends State<OtpFormScreen> {
       child: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              otpField(nextNode: pin2FocusNode, nodeName: pin1FocusNode),
-              SizedBox(width: getProportionateScreenWidth(kDefaultPaddin)),
-              otpField(nextNode: pin3FocusNode, nodeName: pin2FocusNode),
-              SizedBox(width: getProportionateScreenWidth(kDefaultPaddin)),
-              otpField(nextNode: pin4FocusNode, nodeName: pin3FocusNode),
-              SizedBox(width: getProportionateScreenWidth(kDefaultPaddin)),
+              otpField(pin: pin1FocusNode),
+              const Spacer(),
+              otpField(pin: pin2FocusNode),
+              const Spacer(),
+              otpField(pin: pin3FocusNode),
+              const Spacer(),
               //fix error add unfocus on pin4 next node ex: pin4FocusNode.unforcus
-              otpField(nextNode: pin4FocusNode, nodeName: pin4FocusNode),
+              otpField(pin: pin4FocusNode),
             ],
           ),
           SizedBox(height: getProportionateScreenHeight(kDefaultPaddin)),
@@ -80,20 +82,28 @@ class _OtpFormScreenState extends State<OtpFormScreen> {
     );
   }
 
-  SizedBox otpField({FocusNode? nextNode, required nodeName}) {
+  SizedBox otpField({FocusNode? pin}) {
     return SizedBox(
-      width: getProportionateScreenWidth(60),
+      width: 64,
+      height: 68,
       child: TextFormField(
-        focusNode: nodeName,
+        // decoration: InputDecoration(hintText: "*"),
         textInputAction: TextInputAction.done,
         autofocus: true,
         obscureText: true,
         keyboardType: TextInputType.number,
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(1),
+          FilteringTextInputFormatter.digitsOnly,
+        ],
         style: const TextStyle(fontSize: kDefaultPaddin),
         textAlign: TextAlign.center,
         onChanged: (value) {
-          nextField(value: value, focusNode: nextNode);
+          if (value.length == 1) {
+            FocusScope.of(context).nextFocus();
+          }
         },
+        onSaved: (pin) {},
         //setup to store value
       ),
     );

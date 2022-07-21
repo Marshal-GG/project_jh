@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project_jh/constants.dart';
 import 'package:project_jh/screens/login_setup/components/background.dart';
+import 'package:project_jh/screens/login_setup/components/social_sign_up.dart';
 import 'package:project_jh/screens/login_setup/responsive.dart';
 import 'package:project_jh/screens/login_setup/signup/otp/components/opt_screen_top_image.dart';
 
@@ -60,27 +62,27 @@ class MobileOTPScreen extends StatelessWidget {
 }
 
 class DesktopOTPScreen extends StatelessWidget {
-  const DesktopOTPScreen({
-    Key? key,
-  }) : super(key: key);
+  const DesktopOTPScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Row(
       children: [
-        const OtpScreenTopImage(),
-        const Spacer(),
-        Row(
+        const Expanded(child: OtpScreenTopImage()),
+        Expanded(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: const [
-            Spacer(),
-            Expanded(
-              flex: 8,
+            SizedBox(
+              width: 450,
               child: OtpFormScreen(),
             ),
-            Spacer(),
+            SizedBox(
+              height: kDefaultPaddin / 2,
+            ),
+            SocialSignUp(),
           ],
-        )
+        ))
       ],
     );
   }
