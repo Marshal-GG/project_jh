@@ -12,7 +12,7 @@ class SignupDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar2(),
+      appBar: buildAppBar(),
       body: const Background(
         child: SingleChildScrollView(
           child: Responsive(
@@ -24,7 +24,7 @@ class SignupDetailsScreen extends StatelessWidget {
     );
   }
 
-  AppBar buildAppBar2() {
+  AppBar buildAppBar() {
     return AppBar(
       elevation: 0,
       title: const Text("Sign Up"),

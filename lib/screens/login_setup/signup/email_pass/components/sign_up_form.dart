@@ -90,19 +90,19 @@ class _SignUpFormState extends State<SignUpForm> {
   ElevatedButton buildContinueButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        // FirebaseAuth.instance
-        //     .createUserWithEmailAndPassword(
-        //         email: _emailTextController.text,
-        //         password: _passwordTextController.text)
-        //     .then((value) {
-        //   FirebaseFirestore.instance
-        //       .collection('UserData')
-        //       .doc(value.user?.uid)
-        //       .set({
-        //     "email": value.user?.email,
-        //     "name": name,
-        //   });
-        // });
+        FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+                email: _emailTextController.text,
+                password: _passwordTextController.text)
+            .then((value) {
+          FirebaseFirestore.instance
+              .collection('UserData')
+              .doc(value.user?.uid)
+              .set({
+            "email": value.user?.email,
+            "name": name,
+          });
+        });
         if (_formkey.currentState!.validate()) {
           _formkey.currentState!.save();
           Navigator.push(
@@ -110,8 +110,6 @@ class _SignUpFormState extends State<SignUpForm> {
             MaterialPageRoute(
                 builder: (context) => const SignupDetailsScreen()),
           );
-          // if all are valid then go to success screen
-
         }
       },
       child: Text(

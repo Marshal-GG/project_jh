@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:project_jh/constants.dart';
 import 'package:project_jh/screens/home/home_screen.dart';
 import 'package:project_jh/screens/login_setup/components/already_have_an_account_check.dart';
+import 'package:project_jh/screens/login_setup/components/form_error.dart';
+import 'package:project_jh/screens/login_setup/signup/otp/otp_screen.dart';
 import 'package:project_jh/size_config.dart';
 
 class SignupDetailsForm extends StatefulWidget {
@@ -18,6 +20,29 @@ class SignupDetailsForm extends StatefulWidget {
 }
 
 class _SignupDetailsFormState extends State<SignupDetailsForm> {
+  final _formKey = GlobalKey<FormState>();
+  final List<String?> errors = [];
+  String? fullName;
+  String? phoneNumber;
+  String? dob;
+  String? address;
+
+  void addError({String? error}) {
+    if (!errors.contains(error)) {
+      setState(() {
+        errors.add(error);
+      });
+    }
+  }
+
+  void removeError({String? error}) {
+    if (errors.contains(error)) {
+      setState(() {
+        errors.remove(error);
+      });
+    }
+  }
+
   TextEditingController phoneController = TextEditingController();
   FirebaseAuth auth = FirebaseAuth.instance;
   final format = DateFormat("dd-MM-yyyy");
@@ -25,6 +50,7 @@ class _SignupDetailsFormState extends State<SignupDetailsForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _formKey,
       child: Column(
         children: [
           buildFullNameFormField(), //Full Name
@@ -33,19 +59,8 @@ class _SignupDetailsFormState extends State<SignupDetailsForm> {
           SizedBox(height: getProportionateScreenHeight(kDefaultPaddin)),
           buildDOBFormField(), //DOB
           SizedBox(height: getProportionateScreenHeight(kDefaultPaddin)),
-          TextFormField(
-            keyboardType: TextInputType.name,
-            textInputAction: TextInputAction.next,
-            cursorColor: kPrimaryColor,
-            onSaved: (name) {},
-            decoration: const InputDecoration(
-              hintText: "Your Address",
-              prefixIcon: Padding(
-                padding: EdgeInsets.all(kDefaultPaddin),
-                child: Icon(Icons.location_city),
-              ),
-            ),
-          ),
+          buildAddressFormField(),
+          // FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(kDefaultPaddin)),
           buildSignUpButton(context), //Button
           SizedBox(height: getProportionateScreenHeight(kDefaultPaddin)),
@@ -71,26 +86,79 @@ class _SignupDetailsFormState extends State<SignupDetailsForm> {
   ElevatedButton buildSignUpButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return const HomeScreen();
-            },
-          ),
-        );
+        if (_formKey.currentState!.validate()) {
+          _formKey.currentState!.save();
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const OtpScreen()),
+          );
+          //go to otp screen
+        }
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) {
+        //       return const HomeScreen();
+        //     },
+        //   ),
+        // );
       },
       child: Text("Sign Up".toUpperCase()),
     );
   }
 
+  TextFormField buildAddressFormField() {
+    return TextFormField(
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kAddressNullError);
+        }
+        // ignore: avoid_returning_null_for_void
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kAddressNullError);
+          return kAddressNullError;
+        }
+        return null;
+      },
+      keyboardType: TextInputType.streetAddress,
+      textInputAction: TextInputAction.next,
+      cursorColor: kPrimaryColor,
+      onSaved: (newValue) => address = newValue,
+      decoration: const InputDecoration(
+        hintText: "Your Address",
+        prefixIcon: Padding(
+          padding: EdgeInsets.all(kDefaultPaddin),
+          child: Icon(Icons.location_city),
+        ),
+      ),
+    );
+  }
+
   DateTimeField buildDOBFormField() {
     return DateTimeField(
+      onChanged: (value) {
+        if (value != null) {
+          return removeError(error: kDOBNullError);
+        }
+        // ignore: avoid_returning_null_for_void
+        return null;
+      },
+      validator: (value) {
+        if (value != null) {
+          return null;
+        } else {
+          addError(error: kDOBNullError);
+          return kDOBNullError;
+        }
+      },
       keyboardType: TextInputType.datetime,
       textInputAction: TextInputAction.next,
       cursorColor: kPrimaryColor,
       // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
-      onSaved: (DOB) {},
+      onSaved: (dob) {},
       decoration: const InputDecoration(
         hintText: "Date of Birth",
         prefixIcon: Padding(
@@ -131,12 +199,26 @@ class _SignupDetailsFormState extends State<SignupDetailsForm> {
 
   TextFormField buildPhoneNumberFormField() {
     return TextFormField(
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kPhoneNumberNullError);
+        }
+        // ignore: avoid_returning_null_for_void
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kPhoneNumberNullError);
+          return kPhoneNumberNullError;
+        }
+        return null;
+      },
       controller: phoneController,
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
       cursorColor: kPrimaryColor,
       // ignore: avoid_types_as_parameter_names
-      onSaved: (num) {},
+      onSaved: (newValue) => phoneNumber = newValue,
       decoration: const InputDecoration(
         hintText: "Phone Number",
         prefixIcon: Padding(
@@ -149,10 +231,24 @@ class _SignupDetailsFormState extends State<SignupDetailsForm> {
 
   TextFormField buildFullNameFormField() {
     return TextFormField(
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kNameNullError);
+        }
+        // ignore: avoid_returning_null_for_void
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kNameNullError);
+          return kNameNullError;
+        }
+        return null;
+      },
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.next,
       cursorColor: kPrimaryColor,
-      onSaved: (name) {},
+      onSaved: (newValue) => fullName = newValue,
       decoration: const InputDecoration(
         hintText: "Full Name",
         prefixIcon: Padding(
