@@ -136,7 +136,7 @@ class _LoginFormState extends State<LoginForm> {
       obscureText: true,
       cursorColor: kPrimaryColor,
       decoration: const InputDecoration(
-        hintText: "Your Password",
+        hintText: "Password",
         prefixIcon: Padding(
           padding: EdgeInsets.all(kDefaultPaddin),
           child: Icon(Icons.lock),
@@ -175,7 +175,7 @@ class _LoginFormState extends State<LoginForm> {
         emailController.text = newValue!;
       },
       decoration: const InputDecoration(
-        hintText: "Your Email",
+        hintText: "Email Address",
         prefixIcon: Padding(
           padding: EdgeInsets.all(kDefaultPaddin),
           child: Icon(Icons.person),
