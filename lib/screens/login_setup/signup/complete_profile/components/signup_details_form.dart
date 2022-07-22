@@ -1,13 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:project_jh/constants.dart';
 import 'package:project_jh/screens/home/home_screen.dart';
 import 'package:project_jh/screens/login_setup/components/already_have_an_account_check.dart';
-import 'package:project_jh/screens/login_setup/components/form_error.dart';
 import 'package:project_jh/screens/login_setup/signup/otp/otp_screen.dart';
 import 'package:project_jh/size_config.dart';
 
@@ -22,6 +21,10 @@ class SignupDetailsForm extends StatefulWidget {
 
 class _SignupDetailsFormState extends State<SignupDetailsForm> {
   final _formKey = GlobalKey<FormState>();
+
+  String verificationReceivedID = "";
+  String countryDial = "+91";
+
   final List<String?> errors = [];
   String? fullName;
   String? phoneNumber;
@@ -87,6 +90,7 @@ class _SignupDetailsFormState extends State<SignupDetailsForm> {
   ElevatedButton buildSignUpButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
+        verifyNumber();
         if (_formKey.currentState!.validate()) {
           _formKey.currentState!.save();
           Navigator.push(
@@ -259,5 +263,36 @@ class _SignupDetailsFormState extends State<SignupDetailsForm> {
         ),
       ),
     );
+  }
+
+  void verifyNumber() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      try {
+        await auth.verifyPhoneNumber(
+            phoneNumber: countryDial + phoneController.text,
+            verificationCompleted: (PhoneAuthCredential credential) async {
+              auth.signInWithCredential(credential).then(
+                    (value) => Fluttertoast.showToast(msg: "Login Successful"),
+                  );
+            },
+            verificationFailed: (FirebaseAuthException exception) {
+              Fluttertoast.showToast(
+                msg: exception.message.toString(),
+                gravity: ToastGravity.TOP,
+              );
+            },
+            codeSent: (String verificationID, int? resendToken) {
+              verificationReceivedID = verificationID;
+              setState(() {});
+            },
+            codeAutoRetrievalTimeout: (String verificationID) {});
+      } on FirebaseAuthException catch (error) {
+        Fluttertoast.showToast(
+          msg: error.message.toString(),
+          gravity: ToastGravity.TOP,
+        );
+      }
+    }
   }
 }

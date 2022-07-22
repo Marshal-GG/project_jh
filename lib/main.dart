@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Project JH',
       theme: ThemeData(
+        // brightness: Brightness.dark,
         textTheme: Theme.of(context).textTheme.apply(bodyColor: kTextColor),
         primarySwatch: Colors.grey,
         scaffoldBackgroundColor: Colors.white,
