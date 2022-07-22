@@ -4,7 +4,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_jh/constants.dart';
 import 'package:project_jh/screens/home/home_screen.dart';
 import 'package:project_jh/screens/login_setup/components/already_have_an_account_check.dart';
+import 'package:project_jh/screens/login_setup/forgot_password/forgot_password.dart';
 import 'package:project_jh/screens/login_setup/signup/email_pass/signup_screen.dart';
+import 'package:project_jh/size_config.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({
@@ -21,9 +23,7 @@ class _LoginFormState extends State<LoginForm> {
 
   final _formKey = GlobalKey<FormState>();
 
-  String? email;
-  String? password;
-
+  String? email, password;
   final _auth = FirebaseAuth.instance;
 
   bool remember = false;
@@ -51,94 +51,17 @@ class _LoginFormState extends State<LoginForm> {
       key: _formKey,
       child: Column(
         children: [
-          //Email Field
-          TextFormField(
-            keyboardType: TextInputType.emailAddress,
-            textInputAction: TextInputAction.next,
-            cursorColor: kPrimaryColor,
-            controller: emailController,
-            onChanged: (value) {
-              if (value.isNotEmpty) {
-                removeError(error: kEmailNullError);
-              } else if (emailValidatorRegExp.hasMatch(value)) {
-                removeError(error: kInvalidEmailError);
-              }
-              // ignore: avoid_returning_null_for_void
-              return null;
-            },
-            validator: (value) {
-              if (value!.isEmpty) {
-                addError(error: kEmailNullError);
-                return kEmailNullError;
-              } else if (!emailValidatorRegExp.hasMatch(value)) {
-                addError(error: kInvalidEmailError);
-                return kInvalidEmailError;
-              }
-              return null;
-            },
-            onSaved: (newValue) {
-              emailController.text = newValue!;
-            },
-            decoration: const InputDecoration(
-              hintText: "Your Email",
-              prefixIcon: Padding(
-                padding: EdgeInsets.all(kDefaultPaddin),
-                child: Icon(Icons.person),
-              ),
-            ),
-          ),
-          //Password Field
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: kDefaultPaddin),
-            child: TextFormField(
-              textInputAction: TextInputAction.next,
-              controller: passwordController,
-              onChanged: (value) {
-                if (value.isNotEmpty) {
-                  removeError(error: kPassNullError);
-                } else if (value.length >= 8) {
-                  removeError(error: kShortPassError);
-                }
-                password = value;
-              },
-              validator: (value) {
-                if (value!.isEmpty) {
-                  addError(error: kPassNullError);
-                  return kPassNullError;
-                } else if (value.length < 8) {
-                  addError(error: kShortPassError);
-                  return kShortPassError;
-                }
-                return null;
-              },
-              onSaved: (value) {
-                passwordController.text = value!;
-              },
-              obscureText: true,
-              cursorColor: kPrimaryColor,
-              decoration: const InputDecoration(
-                hintText: "Your Password",
-                prefixIcon: Padding(
-                  padding: EdgeInsets.all(kDefaultPaddin),
-                  child: Icon(Icons.lock),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: kDefaultPaddin),
+          buildEmailFormField(),
+          SizedBox(height: getProportionateScreenHeight(kDefaultPaddin)),
+          buildPasswordFormField(),
+          SizedBox(height: getProportionateScreenHeight(kDefaultPaddin)),
           Hero(
             tag: "login_btn",
-            child: ElevatedButton(
-              onPressed: () {
-                signin(emailController.text, passwordController.text);
-              },
-              child: Text("Login".toUpperCase()),
-            ),
+            child: buildLoginButton(),
           ),
-          const SizedBox(
-            height: kDefaultPaddin,
-          ),
-
+          SizedBox(height: getProportionateScreenHeight(kDefaultPaddin / 2)),
+          buildForgotPassword(),
+          SizedBox(height: getProportionateScreenHeight(kDefaultPaddin / 2)),
           AlreadyHaveAnAccountCheck(
             press: () {
               Navigator.push(
@@ -156,7 +79,110 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  String _error_msg = "khaifh";
+  InkResponse buildForgotPassword() {
+    return InkResponse(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ForgotPassword()),
+        );
+      },
+      child: const Text(
+        "Forgot Password?",
+        style: TextStyle(
+          color: kPrimaryColor,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  ElevatedButton buildLoginButton() {
+    return ElevatedButton(
+      onPressed: () {
+        signin(emailController.text, passwordController.text);
+      },
+      child: Text("Login".toUpperCase()),
+    );
+  }
+
+  TextFormField buildPasswordFormField() {
+    return TextFormField(
+      textInputAction: TextInputAction.next,
+      controller: passwordController,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kPassNullError);
+        } else if (value.length >= 8) {
+          removeError(error: kShortPassError);
+        }
+        setState(() {
+          password = value.trim();
+        });
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kPassNullError);
+          return kPassNullError;
+        } else if (value.length < 8) {
+          addError(error: kShortPassError);
+          return kShortPassError;
+        }
+        return null;
+      },
+      onSaved: (value) {
+        passwordController.text = value!;
+      },
+      obscureText: true,
+      cursorColor: kPrimaryColor,
+      decoration: const InputDecoration(
+        hintText: "Your Password",
+        prefixIcon: Padding(
+          padding: EdgeInsets.all(kDefaultPaddin),
+          child: Icon(Icons.lock),
+        ),
+      ),
+    );
+  }
+
+  TextFormField buildEmailFormField() {
+    return TextFormField(
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      cursorColor: kPrimaryColor,
+      controller: emailController,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kEmailNullError);
+        } else if (emailValidatorRegExp.hasMatch(value)) {
+          removeError(error: kInvalidEmailError);
+        }
+        setState(() {
+          email = value.trim();
+        });
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kEmailNullError);
+          return kEmailNullError;
+        } else if (!emailValidatorRegExp.hasMatch(value)) {
+          addError(error: kInvalidEmailError);
+          return kInvalidEmailError;
+        }
+        return null;
+      },
+      onSaved: (newValue) {
+        emailController.text = newValue!;
+      },
+      decoration: const InputDecoration(
+        hintText: "Your Email",
+        prefixIcon: Padding(
+          padding: EdgeInsets.all(kDefaultPaddin),
+          child: Icon(Icons.person),
+        ),
+      ),
+    );
+  }
 
   void signin(String email, String password) async {
     if (_formKey.currentState!.validate()) {
@@ -169,9 +195,16 @@ class _LoginFormState extends State<LoginForm> {
                     MaterialPageRoute(builder: (context) => const HomeScreen()),
                   ),
                 });
-      } catch (_error_msg) {
-        print(_error_msg);
+      } on FirebaseAuthException catch (error) {
+        // print(error.message);
+        Fluttertoast.showToast(
+          msg: error.message.toString(),
+          gravity: ToastGravity.TOP,
+        );
       }
+      // catch (_error_msg) {
+      //   print(_error_msg);
+      // }
       //   .catchError((e) {
       // Fluttertoast.showToast(msg: e!.msg);
       // },

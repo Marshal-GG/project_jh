@@ -3,6 +3,7 @@ import 'package:project_jh/screens/login_setup/components/phoneauth.dart';
 import 'package:project_jh/screens/login_setup/components/social_icon.dart';
 import 'package:project_jh/screens/login_setup/components/or_divider.dart';
 import 'package:project_jh/screens/home/home_screen.dart';
+import 'package:project_jh/screens/login_setup/signup/otp/otp_screen.dart';
 
 import 'google_auth/firebase_services.dart';
 
@@ -26,7 +27,7 @@ class SocialSignUp extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return const HomeScreen();
+                      return const OtpScreen();
                     },
                   ),
                 );

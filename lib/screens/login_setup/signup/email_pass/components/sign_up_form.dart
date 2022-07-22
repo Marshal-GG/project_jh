@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_jh/constants.dart';
 import 'package:project_jh/screens/login_setup/components/already_have_an_account_check.dart';
 import 'package:project_jh/screens/login_setup/components/form_error.dart';
@@ -24,6 +25,9 @@ class _SignUpFormState extends State<SignUpForm> {
       TextEditingController();
   // final TextEditingController _userNameTextController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
+
+  final _auth = FirebaseAuth.instance;
+
   String? email;
   String? password;
   String? confirm_password;
@@ -90,27 +94,7 @@ class _SignUpFormState extends State<SignUpForm> {
   ElevatedButton buildContinueButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-                email: _emailTextController.text,
-                password: _passwordTextController.text)
-            .then((value) {
-          FirebaseFirestore.instance
-              .collection('UserData')
-              .doc(value.user?.uid)
-              .set({
-            "email": value.user?.email,
-            "name": name,
-          });
-        });
-        if (_formkey.currentState!.validate()) {
-          _formkey.currentState!.save();
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const SignupDetailsScreen()),
-          );
-        }
+        signup(_emailTextController.text, _passwordTextController.text);
       },
       child: Text(
         "Continue".toUpperCase(),
@@ -224,5 +208,34 @@ class _SignUpFormState extends State<SignUpForm> {
         ),
       ),
     );
+  }
+
+  void signup(String email, String password) async {
+    _formkey.currentState!.save();
+    if (_formkey.currentState!.validate()) {
+      try {
+        await _auth
+            .createUserWithEmailAndPassword(email: email, password: password)
+            .then(
+              (value) => {
+                FirebaseFirestore.instance
+                    .collection('UserData')
+                    .doc(value.user?.uid)
+                    .set({"email": value.user?.email, "name": name}).then(
+                  (value) => Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => const SignupDetailsScreen(),
+                    ),
+                  ),
+                )
+              },
+            );
+      } on FirebaseAuthException catch (error) {
+        Fluttertoast.showToast(
+          msg: error.message.toString(),
+          gravity: ToastGravity.TOP,
+        );
+      }
+    }
   }
 }
